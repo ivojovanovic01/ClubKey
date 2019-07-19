@@ -41,7 +41,7 @@ namespace ClubKey.Data.Entities.Models
          DataType(DataType.ImageUrl)]
         public string Image { get; set; }
 
-        public ICollection<Achievement> Achievements { get; set; }
+        public ICollection<UserAchievement> UserAchievements { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClubKey.Data.Entities.Models
 {
@@ -18,5 +19,7 @@ namespace ClubKey.Data.Entities.Models
 
         [Required, Range(1, int.MaxValue)]
         public int RequiredPoints { get; set; }
+
+        public ICollection<UserAchievement> UserAchievements { get; set; }
     }
 }
