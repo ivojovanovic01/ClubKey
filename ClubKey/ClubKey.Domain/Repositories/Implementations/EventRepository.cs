@@ -30,14 +30,12 @@ namespace ClubKey.Domain.Repositories.Implementations
         public List<Event> GetTenEventsByCityId(int cityId, int pageNumber)
         {
             var city = _context.Cities.Find(cityId);
-
             if (city == null)
-                return new List<Event>();
+                return null;
 
             var cityEvents = _context.Events.Where(e => e.Club.City == city);
-
             return !cityEvents.Any() ?
-                new List<Event>() :
+                null :
                 cityEvents.Skip(pageNumber * 10).Take(10).ToList();
         }
         public List<Event> GetTenSimilarEvents(Event mainEvent)
@@ -51,14 +49,15 @@ namespace ClubKey.Domain.Repositories.Implementations
         }
         public List<Event> GetEventsByClubId(int clubId)
         {
-            return _context.Events.Where(e => e.Club.Id == clubId).ToList();
+            var club = _context.Clubs.Find(clubId);
+            return club == null ? null : _context.Events.Where(e => e.Club.Id == clubId).ToList();
         }
         public bool EditEvent(Event editedEvent)
         {
             if (IsEventValid(editedEvent))
                 return false;
 
-            var eventToEdit = _context.Events.Find(editedEvent.Id);
+            var eventToEdit = GetEventById(editedEvent.Id);
             if (eventToEdit == null)
                 return false;
 

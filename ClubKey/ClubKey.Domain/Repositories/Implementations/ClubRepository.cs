@@ -15,11 +15,13 @@ namespace ClubKey.Domain.Repositories.Implementations
         private readonly ClubKeyContext _context;
         public List<Club> GetClubsByCityId(int cityId)
         {
-            return _context.Clubs.Where(club => club.City.Id == cityId).ToList();
+            var city = _context.Cities.Find(cityId);
+            return city == null ? null : _context.Clubs.Where(club => club.City == city).ToList();
         }
         public List<Club> GetClubsByOwnerId(int ownerId)
         {
-            return _context.Clubs.Where(club => club.Owner.Id == ownerId).ToList();
+            var owner = _context.Owners.Find(ownerId);
+            return owner == null ? null : _context.Clubs.Where(club => club.Owner == owner).ToList();
         }
     }
 }

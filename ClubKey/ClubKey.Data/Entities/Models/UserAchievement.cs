@@ -14,6 +14,7 @@ namespace ClubKey.Data.Entities.Models
             UserId = user.Id;
             Achievement = achievement;
             AchievementId = achievement.Id;
+            UserPoints = 0;
         }
         public int UserId { get; set; }
         public User User { get; set; }

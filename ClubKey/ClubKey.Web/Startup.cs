@@ -1,7 +1,8 @@
 using ClubKey.Data.Entities;
+using ClubKey.Domain.Repositories.Implementations;
+using ClubKey.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,14 @@ namespace ClubKey.Web
         {
             services.AddDbContext<ClubKeyContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ClubKeyContext")));
+
+            services.AddScoped<IAchievementRepository, AchievementRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IClubRepository, ClubRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

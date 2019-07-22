@@ -20,8 +20,10 @@ namespace ClubKey.Domain.Repositories.Implementations
         public List<Achievement> GetAchievementsByUserId(int userId)
         {
             var user = _context.Users.Find(userId);
-
-            return user == null ? new List<Achievement>() : user.UserAchievements.Select(ua => ua.Achievement).ToList();
+            return user?.UserAchievements
+                .Where(ua => ua.UserPoints >= ua.Achievement.RequiredPoints)
+                .Select(ua => ua.Achievement)
+                .ToList();
         }
     }
 }
