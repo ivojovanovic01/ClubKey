@@ -6,10 +6,10 @@ namespace ClubKey.Domain.Repositories.Interfaces
     public interface IEventRepository
     {
         int AddEvent(Event eventToAdd);
-        List<Event> GetTenEventsByCityId(int cityId);
+        Event GetEventById(int eventId);
+        List<Event> GetTenEventsByCityId(int cityId, int pageNumber);
         List<Event> GetTenSimilarEvents(Event mainEvent);
         List<Event> GetEventsByClubId(int clubId);
-        Event GetEventById(int eventId);
         bool EditEvent(Event editedEvent);
     }
 }
