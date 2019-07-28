@@ -1,31 +1,37 @@
 import React, { Component } from "react";
 import Event from "../SelectedEvent/selectedEvent";
-import { GetTenEventsByLocation } from "./apiRequests";
 import FrontPageHeader from "./frontPageHeader";
 import SingleEvent from "./singleEvent";
+import { GetTenEventsByLocation, getNumberOfPages } from "./apiRequests";
 
 class FrontPage extends Component {
   state = {
-    whereToStartFrom: 0,
-    numberOfPages: 1,
+    numberOfPages: 0,
+    currentPage: 0,
     events: []
   };
 
   componentDidMount() {
-    GetTenEventsByLocation(response => {
-      if (response < 10) {
-        this.setState({ numberOfPages: 1 });
-      }
-      this.setState({ numberOfPages: response / 10 });
-    });
+    let numberOfPages = getNumberOfPages();
+    this.setState({ numberOfPages });
+    getEvents();
   }
 
-  handlePageChange() {}
+  getEvents = event => {
+    let currentPage = event.target.value;
+    GetTenEventsByLocation(cityId, currentPage).then(response => {
+      this.setState({ events: response, currentPage });
+    });
+  };
 
   handleEventClick = event => <Event event={event} />;
 
   render() {
-    const { events } = this.state;
+    const { numberOfPages, events } = this.state;
+    let numberArray = [];
+    for (let i = 1; i < numberOfPages + 1; i++) {
+      numberArray.push(i);
+    }
     return (
       <div>
         <FrontPageHeader />
@@ -36,6 +42,11 @@ class FrontPage extends Component {
             name={event.name}
           />
         ))}
+        <div>
+          {numberArray.map(pageNumber => (
+            <PageNumber key={pageNumber} click={this.getEvents} />
+          ))}
+        </div>
       </div>
     );
   }
