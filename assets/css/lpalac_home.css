@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+    margin: 0;
+    /*font-family: 'Proxyma Nova'; dodat font*/
+    max-width: 100%;
+    background: #121212;
+    color: white;
+}
+
+.header{
+    background-image: url('../images/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg');
+    width: 100%;
+    padding: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.eventList{
+width: 80%;
+margin: 0 auto;
+}
+.eventList__single{
+   width: 100%;
+   display: grid;
+   grid-template-rows: auto auto auto;
+}
+.eventList__single-user{
+
+}
+.eventList__single-user-img{
+    width: 30px;
+    border-radius: 100%;
+
+}
+.eventList__single-img{
+    max-width: 400px;
+    height: 100%;
+
+    position: relative ; 
+    padding-top: 30%;
+    margin: 0 auto;
+  background-image: url('../images/alcohol-bar-blur-239466.jpg');
+    background-position: center center;
+    background-size: cover;
+    
+    
+    
+}
+.eventList__single-info{
+    display: grid;
+ grid-template-columns: 12% auto 20%;
+}
+.eventList__single-date{
+    text-align: center;
+}
+.eventList__single-text{
+
+}
