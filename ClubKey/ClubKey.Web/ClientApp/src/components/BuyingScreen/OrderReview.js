@@ -10,20 +10,31 @@ const OrderReview = props => {
       <div className="section-container">
         <div className="purple-circle" />
         <div className="ticket-wrapper">
-          <h4 className="ticket-basic-info">Ticket for Vodka party</h4>
+          <h4 className="ticket-basic-info">Ticket for {props.event.name}</h4>
           <div className="ticket-info-container">
             <div className="club-location">
-              <p>Seller Quazi Put Bačvica, Split, Croatia, 21000</p>
+              <p>
+                Seller{" "}
+                {props.club.name +
+                  " " +
+                  props.club.address +
+                  ", " +
+                  props.club.city +
+                  ", " +
+                  props.club.city.country +
+                  ", " +
+                  props.club.city.postalNumber}
+              </p>
             </div>
             <div className="ticket-amount">
               <div className="number-of-tickets">
                 <button className="plus-minus-button">-</button>
-                <h4>1</h4>
+                <h4>{props.numberOfTickets}</h4>
                 <button className="plus-minus-button">+</button>
               </div>
               <div className="total-price">
                 <h5>Total</h5>
-                <h4>30 kn</h4>
+                <h4>{props.event.price * props.numberOfTickets}</h4>
               </div>
             </div>
           </div>

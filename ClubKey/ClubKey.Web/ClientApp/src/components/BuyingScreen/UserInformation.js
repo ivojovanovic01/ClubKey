@@ -10,10 +10,16 @@ const UserInformation = props => {
       <div className="section-container">
         <div className="purple-circle" />
         <div>
-          <h4 className="user-basic-info">Hrvoje Horvat, +385976565656</h4>
+          <h4 className="user-basic-info">
+            {props.user.name +
+              " " +
+              props.user.lastName +
+              ", " +
+              props.user.number}
+          </h4>
           <p>
-            Ruđera Boškovića 31 <br />
-            Split, Croatia
+            {props.user.address} <br />
+            {props.user.city + ", " + props.user.country}}
           </p>
         </div>
       </div>

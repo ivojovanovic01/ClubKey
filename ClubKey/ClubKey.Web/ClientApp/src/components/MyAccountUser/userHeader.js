@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/style_profile";
+import "../../styles/style_profile.css";
 
 const UserHeader = props => {
   return (
@@ -8,7 +8,7 @@ const UserHeader = props => {
         <img src="./teta.jpg" alt="" className="account-image" />
       </div>
       <div className="account-data">
-        <h6>Hrvoje Horvat</h6>
+        <h6>{props.user.name + " " + props.user.lastName}</h6>
         <button className="purple-button">EDIT</button>
       </div>
     </section>
