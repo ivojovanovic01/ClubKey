@@ -14,10 +14,8 @@ namespace ClubKey.Data.Entities.Models
         [Required(ErrorMessage = "Location is required")]
         public string Location { get; set; }
 
-        [Required(ErrorMessage = "Club city is required")]
         public City City { get; set; }
 
-        [Required(ErrorMessage = "Event owner is required")]
         public Owner Owner { get; set; }
     }
 }
