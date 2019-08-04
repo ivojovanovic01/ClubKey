@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetTenEventsByLocation = (cityId, whereToStartFrom) =>
+export const getTenEventsByLocation = (cityId, whereToStartFrom) =>
   axios
     .get("api/events/get-ten-by-city", {
       params: { cityId: 1, whereToStartFrom }
@@ -12,7 +12,7 @@ export const GetTenEventsByLocation = (cityId, whereToStartFrom) =>
       alert("GetTenEventsByLocation failed");
     });
 
-export const GetNumberOfEventsInCity = cityId =>
+export const getNumberOfPages = cityId =>
   axios
     .get("api/cities/get-number-of-events", { params: { cityId: 1 } })
     .then(response => {

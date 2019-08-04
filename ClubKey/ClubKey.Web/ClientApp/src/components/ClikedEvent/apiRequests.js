@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetEventById = id =>
+export const getEventById = id =>
   axios
     .get("api/events/get-by-id", { params: { id } })
     .then(response => {
@@ -10,7 +10,7 @@ export const GetEventById = id =>
       alert("GetEventById failed");
     });
 
-export const GetTenSimilarEvents = (music, city) =>
+export const getTenSimilarEvents = (music, city) =>
   axios
     .get("api/events/get-ten-similar", { params: { music, city } })
     .then(response => {

@@ -1,0 +1,83 @@
+body{
+  background-color: black;
+  color:white;
+}
+.account{
+  display: flex;
+  width: 100%;
+}
+.account-image-wrapper{
+ width: 50%;
+ display: flex;
+ justify-content: center;
+}
+.account-image{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+.account-data{
+  width: 50%;
+}
+.ticket-wrapper{
+  border-radius: 3px;
+  background-color: rgb(73, 71, 71);
+  display: flex;
+}
+.event{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.buttons-wrapper{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+.buttons-wrapper button{
+  width: 50%;
+  margin-bottom: 20px;
+}
+.event--date{
+  display: flex;
+}
+.achievements-container{
+  display: flex;
+  flex-direction: column;
+}
+.achievement-row{
+  display: flex;
+}
+.achievement-wrapper{
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.achievement-image{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: darkslategrey;
+}
+.club-info{
+  display: flex;
+}
+.labels{
+  margin-right: 30px;
+}
+.mapouter{
+  position:relative;
+  text-align:right;
+  height:500px;
+  width:100%;
+}
+.gmap_canvas {
+  overflow:hidden;
+  background:none!important;
+  height:500px;
+  width:100%;
+}

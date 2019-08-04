@@ -1,0 +1,73 @@
+*{
+  font-family: 'Comfortaa', cursive;
+}
+.input-field{
+  background-color: black;
+  margin-bottom: 20px;
+  border: 1px grey solid;
+  padding: 5px;
+}
+.purple-button{
+  background-color: purple;
+  color: black;
+  border: 0;
+  padding: 10px 35px;
+}
+.side-margin--20{
+  margin: 0 20px;
+}
+.section-title{
+  text-align: center;
+}
+.font-color--purple{
+  color: purple;
+}
+.text-align--right{
+  text-align: right;
+}
+.event-header{
+  display: flex;
+}
+.club-img{
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  margin: auto 0;
+}
+.club-img--big{
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  margin: auto 20px;
+}
+.club-name{
+  margin: auto 0;
+}
+.club-name--big{
+  margin: auto 0;
+  font-size: 35px;
+}
+.small-events{
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.small-event--img{
+  height: 200px;
+  width: 100%;
+}
+.small-event--info{
+  display: flex;
+  justify-content: space-between;
+}
+.small-event-info--date{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.small-event-btn{
+  display: flex;
+  align-items: center;
+}
+.full-width{
+  width: 100%;
+}

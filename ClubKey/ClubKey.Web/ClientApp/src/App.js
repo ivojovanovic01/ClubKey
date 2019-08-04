@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
-import FrontPage from "./components/FrontPage/frontPage";
+import MyAccountUserView from "./components/MyAccountUser/myAccountUserView";
+import "./styles/style.css";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/index" render={props => <FrontPage />} />
+        <Route path="/index" render={props => <MyAccountUserView />} />
         <Redirect to="/index" />
       </Switch>
     </BrowserRouter>

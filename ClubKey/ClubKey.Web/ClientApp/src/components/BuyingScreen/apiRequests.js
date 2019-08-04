@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const AddTicket = (userId, eventId) =>
+export const addTicket = (userId, eventId) =>
   axios
     .get("api/tickets/add", { params: { userId, eventId } })
     .then(response => {
