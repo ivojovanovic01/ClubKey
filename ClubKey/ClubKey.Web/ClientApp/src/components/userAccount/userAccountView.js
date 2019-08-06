@@ -7,10 +7,11 @@ import {
   getAchievementsByUserId,
   getTicketsByUserId,
   getUserByUsername,
-  GetAllAchievements
+  getAllAchievements,
+  getEventByTicketId
 } from "./apiRequests";
 
-class MyAccountUserView extends Component {
+class UserAccountView extends Component {
   state = {
     user: null,
     tickets: [],
@@ -30,23 +31,46 @@ class MyAccountUserView extends Component {
 
   //Hardcoded username for testing
   getUser = () => {
-    getUserByUsername(localStorage.getItem("iivanic12")).then(user => {
-      console.log(user);
+    getUserByUsername("iivanic12").then(user => {
       if (user !== undefined) {
-        this.setState({ user, loadingUser: false });
-        getAchievementsByUserId(user.Id).then(finishedAchievements => {
-          this.setState({ finishedAchievements });
-        });
-        getTicketsByUserId(user.Id).then(tickets => {
-          this.setState({ tickets, loadingTickets: false });
-        });
+        let loadings = { ...this.state.loadings };
+        loadings.loadingUser = false;
+        this.setState({ user, loadings });
+        this.getFinishedAchievements(user);
+        this.getTickets(user);
       }
     });
   };
 
+  getFinishedAchievements = () => {
+    getAchievementsByUserId(user.id).then(finishedAchievements => {
+      this.setState({ finishedAchievements });
+    });
+  };
+
+  getTickets = () => {
+    getTicketsByUserId(user.id).then(tickets => {
+      tickets.map((ticket, index) => {
+        this.getEvent(ticket);
+      });
+      let loadings = { ...this.state.loadings };
+      loadings.loadingTickets = false;
+      this.setState({ loadings });
+    });
+  };
+
+  getEvent = ticket => {
+    getEventByTicketId(ticket.id).then(event => {
+      ticket.event = event;
+      this.setState({ ...tickets, ticket });
+    });
+  };
+
   getAchievements = () => {
-    GetAllAchievements().then(achievements => {
-      this.setState({ achievements, loadingAchievements: false });
+    getAllAchievements().then(achievements => {
+      let loadings = { ...this.state.loadings };
+      loadings.loadingAchievements = false;
+      this.setState({ achievements, loadings });
     });
   };
 
@@ -61,7 +85,7 @@ class MyAccountUserView extends Component {
         )}
         <section className="active-tickets">
           <h3 className="section-title">Active tickets</h3>
-          {loadings.loadingTickets || tickets === undefined ? (
+          {loadings.loadingTickets || tickets == undefined ? (
             <div>Loading Tickets...</div>
           ) : (
             tickets.map((ticket, index) => (
@@ -84,4 +108,4 @@ class MyAccountUserView extends Component {
   }
 }
 
-export default MyAccountUserView;
+export default UserAccountView;

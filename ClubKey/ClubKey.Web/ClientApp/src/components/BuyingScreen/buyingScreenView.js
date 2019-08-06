@@ -3,22 +3,52 @@ import UserInformation from "./userInformation";
 import PaymentMethods from "./paymentMethods";
 import OrderReview from "./orderReview";
 import "../../styles/style_payment.css";
+import {
+  addTicket,
+  addPaymentMethod,
+  getCityByEventId,
+  getPaymentMethodsByUserId
+} from "./apiRequests";
 
 class BuyingScreenView extends Component {
   state = {
-    event: null,
     city: null,
     numberOfTickets: 0,
-    paymentMethods: []
+    paymentMethods: [],
+    loadings: { loadingOrder: true, loadingPaymentMethods: true }
   };
+
+  componentDidMount() {
+    this.getCity();
+    this.getPaymentMethods();
+  }
+
+  getCity = () => {
+    getCityByEventId(this.props.event).then(city => {
+      this.setState({ city });
+      this.setState({ ...loadings, loadingOrder: false });
+    });
+  };
+
+  getPaymentMethods = () => {
+    getPaymentMethodsByUserId(this.props.user).then(paymentMethods => {
+      this.setState({ paymentMethods });
+      this.setState({ ...loadings, loadingPaymentMethods: false });
+    });
+  };
+
   render() {
-    const { user, paymentMethods, event, city, numberOfTickets } = this.state;
+    const { loadings, paymentMethods, city, numberOfTickets } = this.state;
     return (
       <div>
-        <UserInformation user={user} />
-        <PaymentMethods paymentMethods={paymentMethods} />
+        <UserInformation user={this.props.user} />
+        {loadings.loadingPaymentMethods || paymentMethods === undefined ? (
+          <div>Loading Payment</div>
+        ) : (
+          <PaymentMethods paymentMethods={paymentMethods} />
+        )}
         <OrderReview
-          event={event}
+          event={this.props.event}
           city={city}
           numberOfTickets={numberOfTickets}
         />

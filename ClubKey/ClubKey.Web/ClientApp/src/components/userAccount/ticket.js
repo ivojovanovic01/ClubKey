@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/style_profile.css";
 
 const Ticket = props => {
+  console.log(props);
   return (
     <article className="ticket-wrapper">
       <div className="event">
