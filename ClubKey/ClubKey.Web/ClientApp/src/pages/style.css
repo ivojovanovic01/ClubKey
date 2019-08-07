@@ -2,16 +2,18 @@
   font-family: 'Comfortaa', cursive;
 }
 .input-field{
-  background-color: black;
+  background-color: #121212;
   margin-bottom: 20px;
-  border: 1px grey solid;
+  border: 1px #999999;
   padding: 5px;
 }
 .purple-button{
-  background-color: purple;
-  color: black;
+  background-color: #9575CD;
+  color: white;
   border: 0;
-  padding: 10px 35px;
+  padding: 18px 72px;
+  font-size: 20px;
+
 }
 .side-margin--20{
   margin: 0 20px;
@@ -20,7 +22,7 @@
   text-align: center;
 }
 .font-color--purple{
-  color: purple;
+  color: #9575CD;
 }
 .text-align--right{
   text-align: right;
@@ -56,13 +58,21 @@
   width: 100%;
 }
 .small-event--info{
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 14% auto 25%;
 }
+
 .small-event-info--date{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.small-event-info--title{
+ font-size: 22px;
+}
+.small-event-info--tags{
+  font-size: 12px;
+  color: #cccccc;
 }
 .small-event-btn{
   display: flex;
