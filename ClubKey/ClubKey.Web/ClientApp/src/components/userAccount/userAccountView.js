@@ -42,13 +42,14 @@ class UserAccountView extends Component {
     });
   };
 
-  getFinishedAchievements = () => {
+  getFinishedAchievements = user => {
+    console.log(user.id);
     getAchievementsByUserId(user.id).then(finishedAchievements => {
       this.setState({ finishedAchievements });
     });
   };
 
-  getTickets = () => {
+  getTickets = user => {
     getTicketsByUserId(user.id).then(tickets => {
       tickets.map((ticket, index) => {
         this.getEvent(ticket);
@@ -62,7 +63,7 @@ class UserAccountView extends Component {
   getEvent = ticket => {
     getEventByTicketId(ticket.id).then(event => {
       ticket.event = event;
-      this.setState({ ...tickets, ticket });
+      this.setState({ ...this.state.tickets, ticket });
     });
   };
 
@@ -85,7 +86,7 @@ class UserAccountView extends Component {
         )}
         <section className="active-tickets">
           <h3 className="section-title">Active tickets</h3>
-          {loadings.loadingTickets || tickets == undefined ? (
+          {loadings.loadingTickets || tickets === undefined ? (
             <div>Loading Tickets...</div>
           ) : (
             tickets.map((ticket, index) => (

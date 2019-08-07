@@ -7,7 +7,7 @@ const Event = props => {
     <article className="small-event">
       <div className="event-header">
         <img src="./teta.jpg" alt="" className="club-img" />
-        <h5 className="club-name">Velvet</h5>
+        <h5 className="club-name">{this.props.event.name}</h5>
       </div>
       <img src="./teta.jpg" alt="" className="small-event--img" />
       <div className="small-event--info">

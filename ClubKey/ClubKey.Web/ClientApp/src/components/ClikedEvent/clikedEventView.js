@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import EventInfo from "./eventInfo";
 import Event from "../event";
 import "../../styles/style_event.css";
-import { getEventById, getTenSimilarEvents } from "./apiRequests";
+import { getCityByEventId, getTenSimilarEvents } from "./apiRequests";
 
 class ClickedEventView extends Component {
   state = {
     similarEvents: [],
-    event: null,
-    loadings: {
-      loadingEvent: true,
-      loadingSimilarEvents: true
-    }
+    loadingSimilarEvents: true
   };
 
   componentDidMount() {
-    getEventById(this.props.id).then(event => {
+    getCityByEventId(this.props.id).then(event => {
       this.setState({ event, loadingEvent: false });
       getTenSimilarEvents(event).then(similarEvents => {
         this.setState({ similarEvents, loadingSimilarEvents: false });
@@ -24,13 +20,13 @@ class ClickedEventView extends Component {
   }
 
   render() {
-    const { similarEvents, loadings } = this.state;
+    const { similarEvents, loadingSimilarEvents } = this.state;
     return (
       <div>
-        {loadings.event ? <div>Loading Event...</div> : <EventInfo />}
+        <EventInfo event={this.props.event} city={this.props.city} />
         <section className="small-events">
           <h3>Similar events</h3>
-          {similarEvents === undefined || loadings.similarEvents ? (
+          {similarEvents === undefined || loadingSimilarEvents ? (
             <div>Loading Similar Events...</div>
           ) : (
             similarEvents.map((similarEvent, index) => <Event key={1} />)

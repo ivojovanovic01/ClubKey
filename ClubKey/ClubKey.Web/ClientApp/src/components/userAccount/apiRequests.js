@@ -22,12 +22,13 @@ export const getTicketsByUserId = userId =>
 
 export const getAchievementsByUserId = userId =>
   axios
-    .get("api/achievements/get-by-user", { params: { userId } })
+    .get("api/achievements/get-by-id", { params: { userId } })
     .then(response => {
+      console.log(response);
       return response.data;
     })
     .catch(() => {
-      alert("GetTenEvents failed");
+      alert("GetAchievements failed");
     });
 
 export const getAllAchievements = () =>
@@ -35,10 +36,9 @@ export const getAllAchievements = () =>
     return response.data;
   });
 
-export const getEventByTicketId = ticketId => {
+export const getEventByTicketId = ticketId =>
   axios
     .get("api/events/get-by-ticketId", { params: { ticketId } })
     .then(response => {
       return response.data;
     });
-};

@@ -2,44 +2,67 @@ import React, { Component } from "react";
 import FrontPageHeader from "./frontPageHeader";
 import Event from "../event";
 import "../../styles/style_event.css";
-import { getTenEventsByLocation, getNumberOfPages } from "./apiRequests";
+import {
+  getClubByEventId,
+  getTenEventsByLocation,
+  getNumberOfPages
+} from "./apiRequests";
 
-class FrontPage extends Component {
+//Waitinh for getClubByEventId
+class FrontPageView extends Component {
   state = {
     loadings: {
       loadingEvents: true,
       loadingHeader: true,
       loadingPageNumber: true
     },
-    numberOfPages: 0,
-    currentPage: 0,
-    events: [],
+    numberOfPages: 1,
+    currentPage: 1,
+    clubsAndEvents: [],
     cityId: 1
   };
 
   componentDidMount() {
-    let numberOfPages = getNumberOfPages();
-    this.setState({ numberOfPages });
+    this.getCityId();
+    this.getNumberOfPages();
     this.getEvents();
   }
 
+  getCityId = () => {
+    this.setState({ cityId: 1 });
+  };
+
+  getNumberOfPages = () => {
+    this.setState({ numberOfPages: 3 });
+  };
+
   getEvents = () => {
     getTenEventsByLocation(this.state.cityId, this.state.currentPage).then(
-      response => {
-        this.setState({ events: response, loadingEvents: false });
+      events => {
+        if (events !== undefined) {
+          events.map((event, index) => {
+            getClubByEventId(event.id).then((club, event) => {
+              this.setState({
+                ...this.state.clubsAndEvents,
+                clubAndEvent: { event, club }
+              });
+            });
+          });
+          this.setState({ loadingEvents: false });
+        }
       }
     );
   };
 
   changePage = event => {
-    this.setState({ PageNumber: event.target.value });
+    this.setState({ currentPage: event.target.value });
     this.getEvents();
   };
 
   handleEventClick = event => <Event event={event} />;
 
   render() {
-    const { numberOfPages, events, loadings } = this.state;
+    const { numberOfPages, clubsAndEvents, loadings } = this.state;
     let numberArray = [];
     for (let i = 1; i < numberOfPages + 1; i++) {
       numberArray.push(i);
@@ -53,14 +76,15 @@ class FrontPage extends Component {
         )}
         <section className="small-events">
           <h3>Events</h3>
-          {loadings.loadingEvents || events !== undefined ? (
+          {loadings.loadingEvents || clubsAndEvents !== undefined ? (
             <div>Loading Events...</div>
           ) : (
-            events.map((event, index) => (
+            clubsAndEvents.map((clubAndEvent, index) => (
               <Event
                 click={this.handleEventClick}
                 key={index}
-                name={event.name}
+                event={clubAndEvent.event}
+                club={clubAndEvent.club}
               />
             ))
           )}
@@ -81,4 +105,4 @@ class FrontPage extends Component {
   }
 }
 
-export default FrontPage;
+export default FrontPageView;

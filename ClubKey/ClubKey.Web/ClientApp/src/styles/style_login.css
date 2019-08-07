@@ -52,7 +52,7 @@ body {
   content: " ";
   display: inline-block;
   background-color: lightgray;
-  background-image: url("./foto.png");
+  background-image: url("../assets/foto.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 100px;
