@@ -4,6 +4,7 @@ using System.Linq;
 using ClubKey.Data.Entities;
 using ClubKey.Data.Entities.Models;
 using ClubKey.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClubKey.Domain.Repositories.Implementations
 {
@@ -51,6 +52,16 @@ namespace ClubKey.Domain.Repositories.Implementations
         {
             var club = _context.Clubs.Find(clubId);
             return club == null ? null : _context.Events.Where(e => e.Club.Id == clubId).ToList();
+        }
+        public int GetEventsCountByCityId(int cityId)
+        {
+            var eventsCount = _context
+                .Events
+                .Include(e => e.Club)
+                .ThenInclude(c => c.City)
+                .Count(e => e.Club.City.Id == cityId);
+
+            return eventsCount;
         }
         public bool EditEvent(Event editedEvent)
         {

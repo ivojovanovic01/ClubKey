@@ -10,9 +10,8 @@ namespace ClubKey.Data.Entities.Models
          StringLength(25, MinimumLength = 3,
              ErrorMessage = "The name must be between 3 and 25 characters")]
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Location is required")]
-        public string Location { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         [Required(ErrorMessage = "Club city is required")]
         public City City { get; set; }
