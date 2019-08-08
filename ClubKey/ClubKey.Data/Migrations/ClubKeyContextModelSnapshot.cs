@@ -93,8 +93,9 @@ namespace ClubKey.Data.Migrations
 
                     b.Property<int?>("CityId");
 
-                    b.Property<string>("Location")
-                        .IsRequired();
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()

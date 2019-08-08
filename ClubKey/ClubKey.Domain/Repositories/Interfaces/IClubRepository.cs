@@ -7,5 +7,6 @@ namespace ClubKey.Domain.Repositories.Interfaces
     {
         List<Club> GetClubsByCityId(int cityId);
         List<Club> GetClubsByOwnerId(int ownerId);
+        Club GetClubByEventId(int eventId);
     }
 }
