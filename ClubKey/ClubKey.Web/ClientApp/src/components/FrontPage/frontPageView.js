@@ -5,7 +5,7 @@ import "../../styles/style_event.css";
 import {
   getClubByEventId,
   getTenEventsByLocation,
-  getNumberOfPages
+  getNumberOfPagesByCityId
 } from "./apiRequests";
 
 //Waitinh for getClubByEventId
@@ -25,7 +25,6 @@ class FrontPageView extends Component {
   componentDidMount() {
     this.getCityId();
     this.getNumberOfPages();
-    this.getEvents();
   }
 
   getCityId = () => {
@@ -33,7 +32,10 @@ class FrontPageView extends Component {
   };
 
   getNumberOfPages = () => {
-    this.setState({ numberOfPages: 3 });
+    getNumberOfPagesByCityId(this.state.cityId).then(numberOfPages => {
+      this.setState({ numberOfPages });
+      this.getEvents(this.state.cityId);
+    });
   };
 
   getEvents = () => {

@@ -3,6 +3,7 @@ import UserInformation from "./userInformation";
 import PaymentMethods from "./paymentMethods";
 import OrderReview from "./orderReview";
 import "../../styles/style_payment.css";
+import { Redirect } from "react-router-dom";
 import {
   addTicket,
   addPaymentMethod,
@@ -18,22 +19,30 @@ class BuyingScreenView extends Component {
     loadings: { loadingOrder: true, loadingPaymentMethods: true }
   };
 
+  renderRedirect = () => {
+    console.log("here");
+    console.log(this.props.user);
+    if (this.props.user === undefined) {
+      <Redirect to="/index" />;
+    }
+  };
+
   componentDidMount() {
-    this.getCity();
+    if (this.props.user) this.getCity();
     this.getPaymentMethods();
   }
 
   getCity = () => {
     getCityByEventId(this.props.event).then(city => {
       this.setState({ city });
-      this.setState({ ...loadings, loadingOrder: false });
+      this.setState({ ...this.state.loadings, loadingOrder: false });
     });
   };
 
   getPaymentMethods = () => {
     getPaymentMethodsByUserId(this.props.user).then(paymentMethods => {
       this.setState({ paymentMethods });
-      this.setState({ ...loadings, loadingPaymentMethods: false });
+      this.setState({ ...this.state.loadings, loadingPaymentMethods: false });
     });
   };
 
@@ -41,6 +50,7 @@ class BuyingScreenView extends Component {
     const { loadings, paymentMethods, city, numberOfTickets } = this.state;
     return (
       <div>
+        {this.renderRedirect()}
         <UserInformation user={this.props.user} />
         {loadings.loadingPaymentMethods || paymentMethods === undefined ? (
           <div>Loading Payment</div>

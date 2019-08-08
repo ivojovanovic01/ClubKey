@@ -19,3 +19,10 @@ export const getTenSimilarEvents = (music, city) =>
     .catch(() => {
       alert("GetTenSimilarEvents failed");
     });
+
+export const getCityByEventId = eventId =>
+  axios
+    .get("api/cities/get-by-event", { params: { eventId } })
+    .then(response => {
+      return response.data;
+    });

@@ -12,7 +12,7 @@ export const getTenEventsByLocation = (cityId, whereToStartFrom) =>
       alert("GetTenEventsByLocation failed");
     });
 
-export const getNumberOfPages = cityId =>
+export const getNumberOfPagesByCityId = cityId =>
   axios
     .get("api/events/get-by-cityId", { params: { cityId } })
     .then(response => {
