@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import FrontPageHeader from "./frontPageHeader";
 import Event from "../event";
 import "../../styles/style_event.css";
+import "../../styles/style_home.css";
 import {
   getClubByEventId,
   getTenEventsByLocation,
   getNumberOfPagesByCityId
 } from "./apiRequests";
 
-//Waitinh for getClubByEventId
+//Waiting for getClubByEventId
 class FrontPageView extends Component {
   state = {
     loadings: {
       loadingEvents: true,
-      loadingHeader: true,
       loadingPageNumber: true
     },
     numberOfPages: 1,
@@ -71,11 +71,7 @@ class FrontPageView extends Component {
     }
     return (
       <div>
-        {loadings.loadingHeader === true ? (
-          <div>Loading...</div>
-        ) : (
-          <FrontPageHeader />
-        )}
+        <FrontPageHeader />
         <section className="small-events">
           <h3>Events</h3>
           {loadings.loadingEvents || clubsAndEvents !== undefined ? (

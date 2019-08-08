@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const addTicket = (userId, eventId) =>
+export const addTicket = (userId, eventId, price) =>
   axios
-    .post("api/tickets/add", { params: { userId, eventId } })
+    .post("api/tickets/add", { params: { userId, eventId, price } })
     .then(response => {
       return response.data;
     })

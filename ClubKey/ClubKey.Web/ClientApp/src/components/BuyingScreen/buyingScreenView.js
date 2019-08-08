@@ -20,8 +20,6 @@ class BuyingScreenView extends Component {
   };
 
   renderRedirect = () => {
-    console.log("here");
-    console.log(this.props.user);
     if (this.props.user === undefined) {
       <Redirect to="/index" />;
     }
@@ -46,6 +44,12 @@ class BuyingScreenView extends Component {
     });
   };
 
+  handleBuying = () => {
+    for (let i; i < numberOfTickets; i++) {
+      addTicket(this.props.user.id, this.props.event.id, event.price);
+    }
+  };
+
   render() {
     const { loadings, paymentMethods, city, numberOfTickets } = this.state;
     return (
@@ -55,7 +59,10 @@ class BuyingScreenView extends Component {
         {loadings.loadingPaymentMethods || paymentMethods === undefined ? (
           <div>Loading Payment</div>
         ) : (
-          <PaymentMethods paymentMethods={paymentMethods} />
+          <PaymentMethods
+            addPayment={this.handleAddPaymentMethod}
+            paymentMethods={paymentMethods}
+          />
         )}
         <OrderReview
           event={this.props.event}
@@ -66,7 +73,12 @@ class BuyingScreenView extends Component {
           <h6 className="discount-code-title">Discount code:</h6>
           <input type="text" placeholder="Code..." className="input-field" />
         </section>
-        <button className="purple-button full-width">BUY NOW</button>
+        <button
+          onClick={this.handleBuying}
+          className="purple-button full-width"
+        >
+          BUY NOW
+        </button>
       </div>
     );
   }
