@@ -6,14 +6,39 @@
     
     color: #f2f2f2;
 }
+article{
+    margin: 50px 30px;
+}
 body{
     width: 100%;
     background: #121212;
 }
+.navbar{
+    height: 60px;
+    background-color: #141414; 
+    position: relative;
+    
+}
+.navbar_filter{
+position: absolute;
+width: 30px;
+top:20px;
+right:100px;
+}
+.navbar_search{
+position: absolute;
+width: 30px;
+top:20px;
+right:40px;
+}
 .header{
     background-image: url('../images/header.jpg');
+    background-position:center ;
+    background-size: 100%;
+    background-repeat: no-repeat;
     position: relative;
-    padding: 400px;
+
+    padding: 380px;
     display: flex;
     flex-direction: column;
 }
