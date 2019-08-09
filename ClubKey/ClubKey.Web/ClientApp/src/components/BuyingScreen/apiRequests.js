@@ -44,7 +44,7 @@ export const getEventById = id =>
       alert("GetEventById failed");
     });
 
-export const GetUserById = id =>
+export const getUserById = id =>
   axios
     .get("api/user/get-by-id", { params: { id } })
     .then(response => {

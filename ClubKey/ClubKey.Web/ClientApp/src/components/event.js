@@ -3,6 +3,7 @@ import "../styles/style.css";
 import "../styles/style_event.css";
 
 const Event = props => {
+	const { id } = this.props.match.params;
   return (
     <article className="small-event">
       <div className="event-header">

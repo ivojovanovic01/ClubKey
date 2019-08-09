@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import "./styles/style.css";
-import FrontPageView from "./components/FrontPage/frontPageView";
-import ClickedEventView from "./components/ClikedEvent/clikedEventView";
-import BuyingScreen from "./components/BuyingScreen/buyingScreenView";
+import FrontPageView from "./components/frontPage/frontPageView";
+import ClickedEventView from "./components/clikedEvent/clikedEventView";
+import BuyingScreen from "./components/buyingScreen/buyingScreenView";
 
 function App() {
   return (

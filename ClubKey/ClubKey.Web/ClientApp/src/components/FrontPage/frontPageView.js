@@ -3,6 +3,7 @@ import FrontPageHeader from "./frontPageHeader";
 import Event from "../event";
 import "../../styles/style_event.css";
 import "../../styles/style_home.css";
+import  { Redirect } from 'react-router-dom'
 import {
   getClubByEventId,
   getTenEventsByLocation,
@@ -56,7 +57,7 @@ class FrontPageView extends Component {
     );
   };
 
-  changePage = event => {
+  hanldeChangePage = event => {
     this.setState({ currentPage: event.target.value });
     this.getEvents();
   };
@@ -92,7 +93,7 @@ class FrontPageView extends Component {
         ) : (
           <div>
             {numberArray.map(pageNumber => (
-              <span key={pageNumber} onClick={this.getEvents}>
+              <span key={pageNumber} onClick={this.hanldeChangePage}>
                 {pageNumber}
               </span>
             ))}

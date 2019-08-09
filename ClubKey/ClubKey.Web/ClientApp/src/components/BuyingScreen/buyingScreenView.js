@@ -16,13 +16,14 @@ class BuyingScreenView extends Component {
 	city: null,
 	user: null,
 	numberOfTickets: 1,
+	event: null,
 	loadings: { loadingCity: true, loadingEvent: true, loadingCity: true }
 	};
 
 	componentDidMount() {
+		const { eventId } = this.props.match.params;
 		this.getUser();
-		this.getUser();
-		this.getEventAndCity();
+		this.getEventAndCity(eventId);
 		this.getPaymentMethods();
 		this.getEvent();
 	}
@@ -34,8 +35,8 @@ class BuyingScreenView extends Component {
 		});
 	};
 
-	getEventAndCity = () => {
-		getEventById(window.location.pathname).then(event => {
+	getEventAndCity = eventId => {
+		getEventById(eventId).then(event => {
 			this.setState({event});
 			this.setState({ ...this.state.loadings, loadingEvent: false });
 		});
@@ -62,7 +63,7 @@ class BuyingScreenView extends Component {
 	};
 
 	render() {
-	const { user, loadings, paymentMethods, city, numberOfTickets } = this.state;
+	const { user, loadings, paymentMethods, city, numberOfTickets, event } = this.state;
 	return (
 		<div>
 		{loadings.loadingUser || user === undefined ? 
