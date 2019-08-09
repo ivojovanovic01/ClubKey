@@ -1,4 +1,6 @@
-﻿using ClubKey.Data.Entities.Models;
+﻿using System;
+using System.Collections.Generic;
+using ClubKey.Data.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClubKey.Data.Entities
@@ -17,7 +19,6 @@ namespace ClubKey.Data.Entities
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserAchievement> UserAchievements { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserAchievement>()

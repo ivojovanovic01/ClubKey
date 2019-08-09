@@ -1,0 +1,27 @@
+body{
+  background-color: black;
+  color: white;
+}
+.heading-event, .small-events{
+  margin: 0 20px;
+}
+.heading_event-wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+.heading_event--title{
+  display: inline;
+  margin: 0;
+}
+.performer{
+  display: inline;
+}
+.event-date-price-wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30px;
+}
+.heading-image{
+  width: 100%;
+}

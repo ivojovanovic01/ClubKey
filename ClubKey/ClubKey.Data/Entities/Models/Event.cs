@@ -21,7 +21,6 @@ namespace ClubKey.Data.Entities.Models
          DataType(DataType.DateTime, ErrorMessage = "Finish time must be in DateTime format")]
         public DateTime FinishTime { get; set; }
 
-        [Required(ErrorMessage = "Event club is required")]
         public Club Club { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }

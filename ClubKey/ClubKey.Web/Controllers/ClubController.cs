@@ -30,5 +30,14 @@ namespace ClubKey.Web.Controllers
                 return Ok(clubs);
             return Forbid();
         }
+
+        [HttpGet("get-by-event")]
+        public IActionResult GetClubByEventId(int eventId)
+        {
+            var club = _clubRepository.GetClubByEventId(eventId);
+            if (club != null)
+                return Ok(club);
+            return Forbid();
+        }
     }
 }

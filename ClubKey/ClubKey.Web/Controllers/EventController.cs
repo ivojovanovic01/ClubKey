@@ -43,12 +43,28 @@ namespace ClubKey.Web.Controllers
         }
 
         [HttpGet("get-ten-similar-events")]
-        public IActionResult GetTenSimilarEvents(Event mainEvent) // need to write
+        public IActionResult GetTenSimilarEvents(Event mainEvent)
         {
             var events = _eventRepository.GetTenSimilarEvents(mainEvent);
             if (events != null)
                 return Ok(events);
             return Forbid();
+        }
+
+        [HttpGet("get-event-by-club")]
+        public IActionResult GetEventsByClubId(int clubId)
+        {
+            var events = _eventRepository.GetEventsByClubId(clubId);
+            if (events != null)
+                return Ok(events);
+            return Forbid();
+        }
+
+        [HttpGet("get-events-count-by-city")]
+        public IActionResult GetEventsCountByCityId(int cityId)
+        {
+            var eventsCount = _eventRepository.GetEventsCountByCityId(cityId);
+            return Ok(eventsCount);
         }
 
         [HttpPost("edit")]

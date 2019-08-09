@@ -10,6 +10,7 @@ namespace ClubKey.Domain.Repositories.Interfaces
         List<Event> GetTenEventsByCityId(int cityId, int pageNumber);
         List<Event> GetTenSimilarEvents(Event mainEvent);
         List<Event> GetEventsByClubId(int clubId);
+        int GetEventsCountByCityId(int cityId);
         bool EditEvent(Event editedEvent);
     }
 }

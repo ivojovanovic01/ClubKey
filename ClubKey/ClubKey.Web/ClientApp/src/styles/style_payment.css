@@ -1,0 +1,66 @@
+body{
+  background-color: black;
+  color: white;
+}
+.section-title-wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.section-container{
+  background-color: rgb(99, 96, 96);
+  border-radius: 4px;
+  display: flex;
+}
+.purple-circle{
+  background-color: purple;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.ticket-wrapper{
+  width: 100%;
+}
+.ticket-info-container{
+  display: flex;
+  justify-content: space-between;
+}
+.club-location{
+  display: flex;
+  width: 35%;
+}
+.ticket-amount{
+  width: 40%;
+}
+.number-of-tickets{
+  display: flex;
+  justify-content: space-between;
+}
+.total-price{
+  display: flex;
+  justify-content: space-between;
+}
+.credit-card-logo{
+  height: 15px;
+}
+.user-basic-info, .ticket-basic-info{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.discount-code-title{
+  margin-bottom: 10px;
+}
+.plus-minus-button{
+  background-color: inherit;
+  border: 0;
+  color: lightgray;
+  font-size: 30px;
+}
+.button-less{
+  background-color: inherit;
+  color: white;
+  border: 0;
+  font-weight: bolder;
+  padding: 5px;
+}
