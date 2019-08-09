@@ -10,8 +10,6 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/index" render={props => <FrontPageView />} />
-        <Route path="/event" render={props => <ClickedEventView />} />
-        <Route path="/buying" render={props => <BuyingScreenView />} />
         <Redirect to="/index" />
       </Switch>
     </BrowserRouter>

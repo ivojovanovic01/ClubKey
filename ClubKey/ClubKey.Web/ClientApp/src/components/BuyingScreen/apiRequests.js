@@ -33,3 +33,23 @@ export const getCityByEventId = eventId =>
     .then(response => {
       return response.data;
     });
+
+export const getEventById = id =>
+  axios
+    .get("api/events/get-by-id", { params: { id } })
+    .then(response => {
+      return response.data;
+    })
+    .catch(() => {
+      alert("GetEventById failed");
+    });
+
+export const GetUserById = id =>
+  axios
+    .get("api/user/get-by-id", { params: { id } })
+    .then(response => {
+      return response.data;
+    })
+    .catch(() => {
+      alert("GetUserById failed");
+    });

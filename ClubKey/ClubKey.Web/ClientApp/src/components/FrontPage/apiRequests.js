@@ -14,14 +14,14 @@ export const getTenEventsByLocation = (cityId, whereToStartFrom) =>
 
 export const getNumberOfPagesByCityId = cityId =>
   axios
-    .get("api/events/get-by-cityId", { params: { cityId } })
+    .get("api/events/get-events-count-by-city", { params: { cityId } })
     .then(response => {
       return Math.ceil(response.data.length / 10);
     });
 
 export const getClubByEventId = eventId =>
   axios
-    .get("api/clubs/get-by-eventId", { params: { eventId } })
+    .get("api/clubs/get-by-event", { params: { eventId } })
     .then(response => {
       return response.data;
     });
