@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getTenEventsByLocation = (cityId, whereToStartFrom) =>
+export const getTenEventsByLocation = (cityId, pageNumber) =>
   axios
     .get("api/events/get-ten-by-city", {
-      params: { cityId, whereToStartFrom }
+      params: { cityId, pageNumber }
     })
     .then(response => {
       return response.data;
@@ -16,7 +16,7 @@ export const getNumberOfPagesByCityId = cityId =>
   axios
     .get("api/events/get-events-count-by-city", { params: { cityId } })
     .then(response => {
-      return Math.ceil(response.data.length / 10);
+      return Math.ceil(response.data / 10);
     });
 
 export const getClubByEventId = eventId =>
