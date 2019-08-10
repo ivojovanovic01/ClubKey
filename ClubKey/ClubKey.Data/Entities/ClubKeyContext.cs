@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ClubKey.Data.Entities.Models;
+using ClubKey.Data.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClubKey.Data.Entities
@@ -71,19 +72,46 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 1,
                     Name = "Vanilla",
-                    Location = "123123123"
+                    Latitude = 43.521949,
+                    Longitude = 16.432046
                 },
                 new Club()
                 {
                     Id = 2,
                     Name = "Zenta",
-                    Location = "123123123"
+                    Latitude = 43.500075,
+                    Longitude = 16.455708
                 },
                 new Club()
                 {
                     Id = 3,
                     Name = "Moon",
-                    Location = "123123123"
+                    Latitude = 43.508144,
+                    Longitude = 16.450879
+                }
+            };
+
+            var musicians = new List<Musician>()
+            {
+                new Musician()
+                {
+                    Id = 1,
+                    Name = "DJ Krmak"
+                },
+                new Musician()
+                {
+                    Id = 2,
+                    Name = "DJ Mrki"
+                },
+                new Musician()
+                {
+                    Id = 3,
+                    Name = "Mate Cajka"
+                },
+                new Musician()
+                {
+                    Id = 4,
+                    Name = "Severina"
                 }
             };
 
@@ -93,6 +121,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 1,
                     Name = "Pjena party",
+                    Description = "Najbolji party uz puno pjene",
+                    Hashtag = EventHashtag.DJ,
                     StartTime = new DateTime(2019, 8, 10, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 11, 3, 00, 00)
                 },
@@ -100,6 +130,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 2,
                     Name = "White party",
+                    Description = "Najbolji party svi u bijelo",
+                    Hashtag = EventHashtag.DJ,
                     StartTime = new DateTime(2019, 8, 10, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 11, 5, 00, 00)
                 },
@@ -107,6 +139,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 3,
                     Name = "Crazy party",
+                    Description = "Party iznenađenja",
+                    Hashtag = EventHashtag.Rock,
                     StartTime = new DateTime(2019, 8, 10, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 11, 5, 00, 00)
                 },
@@ -114,6 +148,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 4,
                     Name = "Black party",
+                    Description = "Najbolji crni party ikad",
+                    Hashtag = EventHashtag.DJ,
                     StartTime = new DateTime(2019, 8, 12, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 13, 3, 00, 00)
                 },
@@ -121,6 +157,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 5,
                     Name = "Black and white party",
+                    Hashtag = EventHashtag.DJ,
+                    Description = "Najbolji black and white party u gradu",
                     StartTime = new DateTime(2019, 8, 20, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 21, 3, 00, 00)
                 },
@@ -128,6 +166,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 6,
                     Name = "Techno party",
+                    Description = "Za ljubitelje techna",
+                    Hashtag = EventHashtag.Techno,
                     StartTime = new DateTime(2019, 8, 23, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 24, 3, 00, 00)
                 },
@@ -135,6 +175,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 7,
                     Name = "Pop party",
+                    Description = "Najbolji party za ljubitelje popa",
+                    Hashtag = EventHashtag.Pop,
                     StartTime = new DateTime(2019, 8, 23, 23, 00, 00),
                     FinishTime = new DateTime(2019, 8, 24, 5, 00, 00)
                 },
@@ -142,6 +184,8 @@ namespace ClubKey.Data.Entities
                 {
                     Id = 8,
                     Name = "Rock party",
+                    Description = "Najluđi party",
+                    Hashtag = EventHashtag.Rock,
                     StartTime = new DateTime(2019, 2, 1, 23, 00, 00),
                     FinishTime = new DateTime(2019, 2, 1, 5, 00, 00)
                 }
@@ -240,6 +284,10 @@ namespace ClubKey.Data.Entities
 
             modelBuilder.Entity<Club>().HasData(
                 clubs
+            );
+
+            modelBuilder.Entity<Musician>().HasData(
+                musicians
             );
 
             modelBuilder.Entity<Event>().HasData(

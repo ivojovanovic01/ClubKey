@@ -4,14 +4,16 @@ using ClubKey.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClubKey.Data.Migrations
 {
     [DbContext(typeof(ClubKeyContext))]
-    partial class ClubKeyContextModelSnapshot : ModelSnapshot
+    [Migration("20190810102838_AddedMusican")]
+    partial class AddedMusican
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
