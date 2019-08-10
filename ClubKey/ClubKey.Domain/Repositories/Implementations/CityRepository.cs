@@ -3,6 +3,7 @@ using System.Linq;
 using ClubKey.Data.Entities;
 using ClubKey.Data.Entities.Models;
 using ClubKey.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClubKey.Domain.Repositories.Implementations
 {
@@ -16,6 +17,15 @@ namespace ClubKey.Domain.Repositories.Implementations
         public List<City> GetAllCities()
         {
             return _context.Cities.ToList();
+        }
+        public City GetCityByClubId(int clubId)
+        {
+            var city = _context
+                .Cities
+                .Include(c => c.Clubs)
+                .FirstOrDefault(c => c.Clubs.Any(club => club.Id == clubId));
+
+            return city;
         }
     }
 }

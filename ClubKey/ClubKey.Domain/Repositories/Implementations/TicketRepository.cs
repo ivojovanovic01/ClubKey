@@ -18,5 +18,15 @@ namespace ClubKey.Domain.Repositories.Implementations
             var user = _context.Users.Find(userId);
             return user == null ? null :_context.Tickets.Where(ticket => ticket.UserId == userId).ToList();
         }
+        public bool AddTicket(Ticket ticketToAdd)
+        {
+            if (!IsTicketValid(ticketToAdd))
+                return false;
+
+            _context.Tickets.Add(ticketToAdd);
+            _context.SaveChanges();
+            return true;
+        }
+        private static bool IsTicketValid(Ticket ticket) => ticket.EventId != 0 && ticket.Price > 0 && ticket.UserId != 0;
     }
 }
