@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import FrontPageHeader from "./frontPageHeader";
 import Event from "../event";
+import NavMenu from "../NavMenu";
 import "../../styles/style_event.css";
 import "../../styles/style_home.css";
-import  { Redirect } from 'react-router-dom'
 import {
   getClubByEventId,
   getTenEventsByLocation,
@@ -94,6 +94,7 @@ class FrontPageView extends Component {
             ))}
           </div>
         )}
+		<NavMenu />
       </div>
     );
   }

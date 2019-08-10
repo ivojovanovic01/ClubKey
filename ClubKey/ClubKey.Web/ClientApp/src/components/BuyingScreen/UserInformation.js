@@ -5,7 +5,7 @@ const UserInformation = props => {
     <section className="user-information">
       <div className="section-title-wrapper">
         <span className="section-title">User information:</span>
-        <button className="button-less">V</button>
+        <button className="button-less"></button>
       </div>
       <div className="section-container">
         <div className="purple-circle" />

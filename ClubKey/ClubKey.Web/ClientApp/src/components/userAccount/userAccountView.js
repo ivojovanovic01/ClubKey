@@ -25,11 +25,11 @@ class UserAccountView extends Component {
   };
 
   componentDidMount() {
+	const { id } = this.props.match.params;
     this.getUser();
     this.getAchievements();
   }
 
-  //Hardcoded username for testing
   getUser = () => {
     getUserByUsername("iivanic12").then(user => {
       if (user !== undefined) {
@@ -43,7 +43,6 @@ class UserAccountView extends Component {
   };
 
   getFinishedAchievements = user => {
-    console.log(user.id);
     getAchievementsByUserId(user.id).then(finishedAchievements => {
       this.setState({ finishedAchievements });
     });

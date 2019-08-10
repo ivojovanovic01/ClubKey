@@ -3,6 +3,7 @@ import UserInformation from "./userInformation";
 import PaymentMethods from "./paymentMethods";
 import OrderReview from "./orderReview";
 import "../../styles/style_payment.css";
+import "../../styles/style.css";
 import {
 	addTicket,
 	getCityByClubId,
@@ -51,7 +52,7 @@ class BuyingScreenView extends Component {
 		});
 	}
 	getCity = () => {
-		getCityByClubId(this.state.club).then(city => {
+		getCityByClubId(this.state.club.id).then(city => {
 		this.setState({ city, loadingCity: false });
 		});
 	};
@@ -62,10 +63,21 @@ class BuyingScreenView extends Component {
 		}
 	};
 
+	handleAddTicket = () => {
+		let numberOfTickets = this.state.numberOfTickets + 1;
+		this.setState({ numberOfTickets});
+	}
+
+	handleRemoveTicket = () => {
+		if(this.state.numberOfTickets > 1){
+			let numberOfTickets = this.state.numberOfTickets - 1;
+			this.setState({ numberOfTickets});
+		}
+	}
+	
 	render() {
 	const { user, loadingCity, loadingUser, loadingEvent, loadingClub,
 			city, numberOfTickets, event, club } = this.state;
-	console.log(this.state);
 	return (
 		<div>
 		{
@@ -83,6 +95,8 @@ class BuyingScreenView extends Component {
 			club={club}
 			city={city}
 			numberOfTickets={numberOfTickets}
+			addTicket={this.handleAddTicket}
+			removeTicket={this.handleRemoveTicket}
 			/>
 		}
 		<section className="discount-code">

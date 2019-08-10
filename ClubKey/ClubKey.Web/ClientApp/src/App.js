@@ -4,6 +4,7 @@ import "./styles/style.css";
 import FrontPageView from "./components/FrontPage/frontPageView";
 import ClickedEventView from "./components/ClikedEvent/clikedEventView";
 import BuyingScreen from "./components/BuyingScreen/buyingScreenView";
+import UserAccountView from "./components/userAccount/userAccountView";
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
           exact
           path="/buy-ticket/:id"
           render={props => <BuyingScreen {...props} />}
+        />
+		<Route
+          exact
+          path="/user"
+          render={props => <UserAccountView {...props} />}
         />
         <Redirect to="/" />
       </Switch>
