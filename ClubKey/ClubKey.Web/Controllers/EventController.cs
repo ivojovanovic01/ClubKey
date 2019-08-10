@@ -1,6 +1,7 @@
 ﻿using ClubKey.Data.Entities.Models;
 using ClubKey.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ClubKey.Web.Controllers
 {
@@ -43,9 +44,9 @@ namespace ClubKey.Web.Controllers
         }
 
         [HttpGet("get-ten-similar-events")]
-        public IActionResult GetTenSimilarEvents(Event mainEvent)
+        public IActionResult GetTenSimilarEvents(int eventId)
         {
-            var events = _eventRepository.GetTenSimilarEvents(mainEvent);
+            var events = _eventRepository.GetTenSimilarEvents(eventId);
             if (events != null)
                 return Ok(events);
             return Forbid();
@@ -65,6 +66,13 @@ namespace ClubKey.Web.Controllers
         {
             var eventsCount = _eventRepository.GetEventsCountByCityId(cityId);
             return Ok(eventsCount);
+        }
+
+        [HttpGet("get-event-by-ticketId")]
+        public IActionResult GetEventByTicketId(Guid ticketId)
+        {
+            var eventToReturn = _eventRepository.GetEventByTicketId(ticketId);
+            return Ok(eventToReturn);
         }
 
         [HttpPost("edit")]

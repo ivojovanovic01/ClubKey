@@ -2,37 +2,62 @@ import React, { Component } from "react";
 import EventInfo from "./eventInfo";
 import Event from "../event";
 import "../../styles/style_event.css";
-import { getCityByEventId, getTenSimilarEvents } from "./apiRequests";
+import NavMenu from "../NavMenu";
+import { getClubByEventId, getTenSimilarEvents, getEventById } from "./apiRequests";
 
 class ClickedEventView extends Component {
   state = {
-    city: null,
-    similarEvents: [],
-    loadingSimilarEvents: true
+    club: null,
+	event: null,
+    clubsAndSimilarEvents: [],
+    loadingSimilarEvents: true,
+	loadingEvent: true,
+	loadingClub: true
   };
 
   componentDidMount() {
-    getCityByEventId(this.props.event.id).then(city => {
-      this.setState({ city, loadingEvent: false });
-      getTenSimilarEvents(this.props.event).then(similarEvents => {
-        this.setState({ similarEvents, loadingSimilarEvents: false });
-      });
-    });
+	const { id } = this.props.match.params;
+	getEventById(id).then(event => {
+		this.setState({ event, loadingEvent: false });
+    	getClubByEventId(id).then(club => {
+      		this.setState({ club, loadingClub: false });
+      		getTenSimilarEvents(this.state.event.id).then(similarEvents => {
+				similarEvents.map((similarEvent, index) => {
+					getClubByEventId(similarEvent.id).then(club => {
+						var clubsAndSimilarEvents = this.state.clubsAndSimilarEvents;
+						clubsAndSimilarEvents.push({ club, similarEvent});
+						this.setState({ clubsAndSimilarEvents, loadingSimilarEvents: false });
+			});
+		});
+      		});
+    	});
+  	});
   }
 
   render() {
-    const { city, similarEvents, loadingSimilarEvents } = this.state;
-    return (
+    const { event, club, clubsAndSimilarEvents, loadingSimilarEvents, loadingEvent, loadingClub } = this.state;
+	return (
       <div>
-        <EventInfo event={this.props.event} city={city} />
+		{
+			loadingEvent || loadingClub || event === undefined || club === undefined?
+			<div>Loading Info ....</div> : 
+        	<EventInfo event={event} club={club}/>
+		}
         <section className="small-events">
           <h3>Similar events</h3>
-          {similarEvents === undefined || loadingSimilarEvents ? (
+          {clubsAndSimilarEvents === undefined || loadingSimilarEvents ? (
             <div>Loading Similar Events...</div>
           ) : (
-            similarEvents.map((similarEvent, index) => <Event key={1} />)
+            clubsAndSimilarEvents.map((clubAndSimilarEvent, index) => 
+			<Event 
+				event={clubAndSimilarEvent.similarEvent} 
+				club={clubAndSimilarEvent.club}
+				key={index} 
+			/>
+			)
           )}
         </section>
+		<NavMenu />
       </div>
     );
   }

@@ -24,7 +24,6 @@ export const getAchievementsByUserId = userId =>
   axios
     .get("api/achievements/get-by-id", { params: { userId } })
     .then(response => {
-      console.log(response);
       return response.data;
     })
     .catch(() => {
@@ -38,7 +37,7 @@ export const getAllAchievements = () =>
 
 export const getEventByTicketId = ticketId =>
   axios
-    .get("api/events/get-by-ticketId", { params: { ticketId } })
+    .get("api/events/get-event-by-ticketId", { params: { ticketId } })
     .then(response => {
       return response.data;
     });

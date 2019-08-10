@@ -115,19 +115,22 @@ namespace ClubKey.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Location = "123123123",
+                            Latitude = 43.521948999999999,
+                            Longitude = 16.432046,
                             Name = "Vanilla"
                         },
                         new
                         {
                             Id = 2,
-                            Location = "123123123",
+                            Latitude = 43.500075000000002,
+                            Longitude = 16.455708000000001,
                             Name = "Zenta"
                         },
                         new
                         {
                             Id = 3,
-                            Location = "123123123",
+                            Latitude = 43.508144000000001,
+                            Longitude = 16.450879,
                             Name = "Moon"
                         });
                 });
@@ -140,11 +143,21 @@ namespace ClubKey.Data.Migrations
 
                     b.Property<int?>("ClubId");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
                     b.Property<DateTime>("FinishTime");
+
+                    b.Property<int>("Hashtag");
+
+                    b.Property<int?>("MusicianId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<double>("Price");
 
                     b.Property<DateTime>("StartTime");
 
@@ -152,64 +165,126 @@ namespace ClubKey.Data.Migrations
 
                     b.HasIndex("ClubId");
 
+                    b.HasIndex("MusicianId");
+
                     b.ToTable("Events");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            Description = "Najbolji party uz puno pjene",
                             FinishTime = new DateTime(2019, 8, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 5,
                             Name = "Pjena party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 10, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
+                            Description = "Najbolji party svi u bijelo",
                             FinishTime = new DateTime(2019, 8, 11, 5, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 5,
                             Name = "White party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 10, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
+                            Description = "Party iznenađenja",
                             FinishTime = new DateTime(2019, 8, 11, 5, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 0,
                             Name = "Crazy party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 10, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
+                            Description = "Najbolji crni party ikad",
                             FinishTime = new DateTime(2019, 8, 13, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 5,
                             Name = "Black party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 12, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
+                            Description = "Najbolji black and white party u gradu",
                             FinishTime = new DateTime(2019, 8, 21, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 5,
                             Name = "Black and white party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 20, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 6,
+                            Description = "Za ljubitelje techna",
                             FinishTime = new DateTime(2019, 8, 24, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 2,
                             Name = "Techno party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 23, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 7,
+                            Description = "Najbolji party za ljubitelje popa",
                             FinishTime = new DateTime(2019, 8, 24, 5, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 1,
                             Name = "Pop party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 8, 23, 23, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 8,
+                            Description = "Najluđi party",
                             FinishTime = new DateTime(2019, 2, 1, 5, 0, 0, 0, DateTimeKind.Unspecified),
+                            Hashtag = 0,
                             Name = "Rock party",
+                            Price = 0.0,
                             StartTime = new DateTime(2019, 2, 1, 23, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ClubKey.Data.Entities.Models.Musician", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Musician");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "DJ Krmak"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "DJ Mrki"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mate Cajka"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Severina"
                         });
                 });
 
@@ -426,6 +501,10 @@ namespace ClubKey.Data.Migrations
                     b.HasOne("ClubKey.Data.Entities.Models.Club", "Club")
                         .WithMany()
                         .HasForeignKey("ClubId");
+
+                    b.HasOne("ClubKey.Data.Entities.Models.Musician", "Musician")
+                        .WithMany("Events")
+                        .HasForeignKey("MusicianId");
                 });
 
             modelBuilder.Entity("ClubKey.Data.Entities.Models.Ticket", b =>

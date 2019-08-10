@@ -27,16 +27,23 @@ export const getPaymentMethodsByUserId = userId =>
       return response.data;
     });
 
-export const getCityByEventId = eventId =>
+export const getCityByClubId = clubId =>
   axios
-    .get("api/cities/get-by-event", { params: { eventId } })
+    .get("api/cities/get-by-club", { params: { clubId } })
     .then(response => {
       return response.data;
     });
 
-export const getEventById = id =>
+export const getClubByEventId = eventId =>
   axios
-    .get("api/events/get-by-id", { params: { id } })
+    .get("api/clubs/get-by-event", { params: { eventId } })
+    .then(response => {
+      return response.data;
+    });
+
+export const getEvent = eventId =>
+  axios
+    .get("api/events/get-by-id", { params: { eventId } })
     .then(response => {
       return response.data;
     })
@@ -44,9 +51,9 @@ export const getEventById = id =>
       alert("GetEventById failed");
     });
 
-export const getUserById = id =>
+export const getUserById = username =>
   axios
-    .get("api/user/get-by-id", { params: { id } })
+    .get("api/users/get-by-username", { params: { username } })
     .then(response => {
       return response.data;
     })

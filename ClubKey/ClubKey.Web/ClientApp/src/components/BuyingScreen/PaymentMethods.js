@@ -1,11 +1,11 @@
-import React from "./node_modules/react";
+import React from "react";
 
 const PaymentMethods = props => {
   return (
     <section className="payment-methods">
       <div className="section-title-wrapper">
         <span className="section-title">Payment Methods</span>
-        <button className="button-less">V</button>
+        <button className="button-less"></button>
       </div>
       <div className="section-container">
         <div className="purple-circle" />

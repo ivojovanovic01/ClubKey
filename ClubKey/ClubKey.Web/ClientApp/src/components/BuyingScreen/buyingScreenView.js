@@ -1,85 +1,103 @@
 import React, { Component } from "react";
-import UserInformation from "./userInformation";
-import PaymentMethods from "./paymentMethods";
-import OrderReview from "./orderReview";
+import UserInformation from "./UserInformation";
+import PaymentMethods from "./PaymentMethods";
+import OrderReview from "./OrderReview";
+import NavMenu from "../NavMenu";
 import "../../styles/style_payment.css";
+import "../../styles/style.css";
 import {
 	addTicket,
-	getCityByEventId,
-	getPaymentMethodsByUserId,
-	getEventById,
-	getUserById
+	getCityByClubId,
+	getEvent,
+	getUserById,
+	getClubByEventId
 } from "./apiRequests";
 
 class BuyingScreenView extends Component {
 	state = {
-	city: null,
-	user: null,
-	numberOfTickets: 1,
-	event: null,
-	loadings: { loadingCity: true, loadingEvent: true, loadingCity: true }
+		city: null,
+		user: null,
+		club: null,
+		numberOfTickets: 1,
+		event: null,
+		loadingUser: true, 
+		loadingEvent: true, 
+		loadingClub: true,
+		loadingCity: true 
 	};
 
 	componentDidMount() {
-		const { eventId } = this.props.match.params;
+		localStorage.setItem("name", "iivanic12");
+		const { id } = this.props.match.params;
 		this.getUser();
-		this.getEventAndCity(eventId);
-		this.getPaymentMethods();
-		this.getEvent();
+		this.getEventClubAndCity(id);
 	}
 
 	getUser = () => {
-		getUserById(localStorage.getItem("user")).then(user => {
-			this.setState({user});
-			this.setState({ ...this.state.loadings, loadingUser: false });
+		getUserById(localStorage.getItem("name")).then(user => {
+			this.setState({user, loadingUser: false});
 		});
 	};
 
-	getEventAndCity = eventId => {
-		getEventById(eventId).then(event => {
-			this.setState({event});
-			this.setState({ ...this.state.loadings, loadingEvent: false });
+	getEventClubAndCity = id => {
+		getEvent(id).then(event => {
+			this.setState({ event, loadingEvent: false });
+			this.getClubAndCity();
 		});
 	};
 
+	getClubAndCity = () => {
+		getClubByEventId(this.state.event.id).then(club => {
+			this.setState({ club, loadingClub: false});
+			this.getCity();
+		});
+	}
 	getCity = () => {
-		getCityByEventId(this.props.event).then(city => {
-		this.setState({ city });
-		this.setState({ ...this.state.loadings, loadingCity: false });
+		getCityByClubId(this.state.club.id).then(city => {
+		this.setState({ city, loadingCity: false });
 		});
-	};
-
-	getPaymentMethods = () => {
-	getPaymentMethodsByUserId(this.props.user).then(paymentMethods => {
-		this.setState({ paymentMethods });
-		this.setState({ ...this.state.loadings, loadingPaymentMethods: false });
-	});
 	};
 
 	handleBuying = () => {
-	for (let i; i < this.state.numberOfTickets; i++) {
-		addTicket(this.props.user.id, this.props.event.id, this.props.event.price);
-	}
+		for (let i; i < this.state.numberOfTickets; i++) {
+			addTicket(this.props.user.id, this.props.event.id, this.props.event.price);
+		}
 	};
 
+	handleAddTicket = () => {
+		let numberOfTickets = this.state.numberOfTickets + 1;
+		this.setState({ numberOfTickets});
+	}
+
+	handleRemoveTicket = () => {
+		if(this.state.numberOfTickets > 1){
+			let numberOfTickets = this.state.numberOfTickets - 1;
+			this.setState({ numberOfTickets});
+		}
+	}
+	
 	render() {
-	const { user, loadings, paymentMethods, city, numberOfTickets, event } = this.state;
+	const { user, loadingCity, loadingUser, loadingEvent, loadingClub,
+			city, numberOfTickets, event, club } = this.state;
 	return (
 		<div>
-		{loadings.loadingUser || user === undefined ? 
-		<div>Loading User...</div>: 
-		<UserInformation user={user} />}
-		<PaymentMethods
-			addPayment={this.handleAddPaymentMethod}
-			paymentMethods={paymentMethods}
-		/>
 		{
-			loadings.loadingCity || loadings.loadingEvent || city === undefined || event === undefined?
+			loadingUser || user === undefined ? 
+			<div>Loading User...</div>: 
+			<UserInformation user={user} />
+		}
+		<PaymentMethods/>
+		{
+			loadingCity || loadingEvent || loadingClub ||
+			city === undefined || event === undefined || club === undefined?
 			<div>Loading Order Review...</div>: 
 			<OrderReview
-			event={this.props.event}
+			event={event}
+			club={club}
 			city={city}
 			numberOfTickets={numberOfTickets}
+			addTicket={this.handleAddTicket}
+			removeTicket={this.handleRemoveTicket}
 			/>
 		}
 		<section className="discount-code">
@@ -92,6 +110,7 @@ class BuyingScreenView extends Component {
 		>
 			BUY NOW
 		</button>
+		<NavMenu />
 	</div>
 );
 }

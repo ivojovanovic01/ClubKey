@@ -5,7 +5,7 @@ const OrderReview = props => {
     <section className="order-review">
       <div className="section-title-wrapper">
         <span className="section-title">Order review</span>
-        <button className="button-less">V</button>
+        <button className="button-less"></button>
       </div>
       <div className="section-container">
         <div className="purple-circle" />
@@ -17,20 +17,20 @@ const OrderReview = props => {
                 Seller{" "}
                 {props.club.name +
                   " " +
-                  props.club.address +
+                  "Tolstojeve 43" +
                   ", " +
-                  props.club.city +
+                  props.city.name +
                   ", " +
-                  props.club.city.country +
+                  "Croatia" +
                   ", " +
-                  props.club.city.postalNumber}
+                  "21000"}	
               </p>
             </div>
             <div className="ticket-amount">
               <div className="number-of-tickets">
-                <button className="plus-minus-button">-</button>
+                <button onClick={props.removeTicket} className="plus-minus-button">-</button>
                 <h4>{props.numberOfTickets}</h4>
-                <button className="plus-minus-button">+</button>
+                <button onClick={props.addTicket} className="plus-minus-button">+</button>
               </div>
               <div className="total-price">
                 <h5>Total</h5>

@@ -1,4 +1,5 @@
-﻿using ClubKey.Domain.Repositories.Interfaces;
+﻿using ClubKey.Data.Entities.Models;
+using ClubKey.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClubKey.Web.Controllers
@@ -20,6 +21,16 @@ namespace ClubKey.Web.Controllers
 
             if (tickets != null)
                 return Ok(tickets);
+            return Forbid();
+        }
+
+        [HttpPost("add")]
+        public IActionResult AddTicket(Ticket ticketToAdd)
+        {
+            var isTicketCreated = _ticketRepository.AddTicket(ticketToAdd);
+
+            if (isTicketCreated)
+                return Ok();
             return Forbid();
         }
     }

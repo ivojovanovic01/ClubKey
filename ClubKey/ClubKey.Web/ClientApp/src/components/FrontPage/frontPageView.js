@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import FrontPageHeader from "./frontPageHeader";
 import Event from "../event";
+import NavMenu from "../NavMenu";
 import "../../styles/style_event.css";
 import "../../styles/style_home.css";
-import  { Redirect } from 'react-router-dom'
 import {
   getClubByEventId,
   getTenEventsByLocation,
   getNumberOfPagesByCityId
 } from "./apiRequests";
 
-//Waiting for getClubByEventId
 class FrontPageView extends Component {
   state = {
-    loadings: {
-      loadingEvents: true,
-      loadingPageNumber: true
-    },
+    loadingEvents: true,
+    loadingPageNumber: true,
     numberOfPages: 1,
     currentPage: 1,
     clubsAndEvents: [],
@@ -24,6 +21,7 @@ class FrontPageView extends Component {
   };
 
   componentDidMount() {
+	localStorage.setItem("name", "iivanic12");
     this.getCityId();
     this.getNumberOfPages();
   }
@@ -34,7 +32,7 @@ class FrontPageView extends Component {
 
   getNumberOfPages = () => {
     getNumberOfPagesByCityId(this.state.cityId).then(numberOfPages => {
-      this.setState({ numberOfPages });
+      this.setState({ numberOfPages, loadingPageNumber: false });
       this.getEvents(this.state.cityId);
     });
   };
@@ -42,17 +40,14 @@ class FrontPageView extends Component {
   getEvents = () => {
     getTenEventsByLocation(this.state.cityId, this.state.currentPage).then(
       events => {
-        if (events !== undefined) {
-          events.map((event, index) => {
-            getClubByEventId(event.id).then((club, event) => {
-              this.setState({
-                ...this.state.clubsAndEvents,
-                clubAndEvent: { event, club }
-              });
-            });
-          });
-          this.setState({ loadingEvents: false });
-        }
+		events.map((event, index) => {
+			getClubByEventId(event.id).then(club => {
+				var clubsAndEvents = this.state.clubsAndEvents;
+				clubsAndEvents.push({ club, event});
+				this.setState({ clubsAndEvents });
+			});
+		});
+		this.setState({ loadingEvents: false });
       }
     );
   };
@@ -65,7 +60,7 @@ class FrontPageView extends Component {
   handleEventClick = event => <Event event={event} />;
 
   render() {
-    const { numberOfPages, clubsAndEvents, loadings } = this.state;
+    const { numberOfPages, clubsAndEvents, loadingEvents, loadingPageNumber } = this.state;
     let numberArray = [];
     for (let i = 1; i < numberOfPages + 1; i++) {
       numberArray.push(i);
@@ -75,12 +70,12 @@ class FrontPageView extends Component {
         <FrontPageHeader />
         <section className="small-events">
           <h3>Events</h3>
-          {loadings.loadingEvents || clubsAndEvents !== undefined ? (
+          {loadingEvents || clubsAndEvents === undefined ? (
             <div>Loading Events...</div>
           ) : (
             clubsAndEvents.map((clubAndEvent, index) => (
               <Event
-                click={this.handleEventClick}
+                eventClick={this.handleEventClick}
                 key={index}
                 event={clubAndEvent.event}
                 club={clubAndEvent.club}
@@ -88,7 +83,7 @@ class FrontPageView extends Component {
             ))
           )}
         </section>
-        {loadings.loadingPageNumber ? (
+        {loadingPageNumber ? (
           <div>Loading page number...</div>
         ) : (
           <div>
@@ -99,6 +94,7 @@ class FrontPageView extends Component {
             ))}
           </div>
         )}
+		<NavMenu />
       </div>
     );
   }

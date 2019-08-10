@@ -19,5 +19,14 @@ namespace ClubKey.Web.Controllers
             var cities = _cityRepository.GetAllCities();
             return Ok(cities);
         }
+
+        [HttpGet("get-by-club")]
+        public IActionResult GetCityByClubId(int clubId)
+        {
+            var city = _cityRepository.GetCityByClubId(clubId);
+            if (city != null)
+                return Ok(city);
+            return Forbid();
+        }
     }
 }
