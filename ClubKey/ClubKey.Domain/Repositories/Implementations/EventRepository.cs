@@ -34,10 +34,10 @@ namespace ClubKey.Domain.Repositories.Implementations
             if (city == null)
                 return null;
 
-            var cityEvents = _context.Events.Where(e => e.Club.City == city);
+            var cityEvents = _context.Events.Where(e => e.Club.City == city).ToList();
             return !cityEvents.Any() ?
                 null :
-                cityEvents.Skip(pageNumber * 10).Take(10).ToList();
+                cityEvents.Skip((pageNumber - 1) * 10).Take(10).ToList();
         }
         public List<Event> GetTenSimilarEvents(Event mainEvent)
         {

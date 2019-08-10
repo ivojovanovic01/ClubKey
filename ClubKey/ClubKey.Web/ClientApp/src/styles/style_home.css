@@ -9,7 +9,6 @@ body {
   background: #121212;
 }
 .header {
-  background-image: url("../images/header.jpg");
   position: relative;
   padding: 400px;
   display: flex;

@@ -11,15 +11,13 @@ const UserInformation = props => {
         <div className="purple-circle" />
         <div>
           <h4 className="user-basic-info">
-            {props.user.name +
+            {props.user.firstName +
               " " +
-              props.user.lastName +
-              ", " +
-              props.user.number}
+              props.user.lastName}
           </h4>
           <p>
-            {props.user.address} <br />
-            {props.user.city + ", " + props.user.country}}
+            <br />
+            {props.user.email}
           </p>
         </div>
       </div>

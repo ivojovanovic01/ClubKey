@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../styles/style.css";
 import "../../styles/style_event.css";
 
@@ -7,14 +8,14 @@ const EventInfo = props => {
     <div>
       <div className="event-header">
         <img src="./teta.jpg" alt="" className="club-img--big" />
-        <h5 className="club-name--big">ZENTA</h5>
+        <h5 className="club-name--big">{props.club.name}</h5>
       </div>
       <div>
         <img src="./teta.jpg" alt="" className="heading-image" />
       </div>
       <section className="heading-event">
         <div className="heading_event-wrapper">
-          <h1 className="heading_event--title">MONDAY PARTY</h1>
+          <h1 className="heading_event--title">{props.event.name}</h1>
           <div className="music-by">
             Music by
             <h5 className="performer">DJ FLEX</h5>
@@ -33,9 +34,11 @@ const EventInfo = props => {
           </h3>
           <h3 className="event--price">Ticket price: 120kn</h3>
         </div>
-        <button className="heading-event--button purple-button full-width">
-          BUY NOW
-        </button>
+		<Link to={`/buy-ticket/` + props.event.id}>
+			<button className="heading-event--button purple-button full-width">
+			BUY NOW
+			</button>
+		</Link>
       </section>
     </div>
   );
