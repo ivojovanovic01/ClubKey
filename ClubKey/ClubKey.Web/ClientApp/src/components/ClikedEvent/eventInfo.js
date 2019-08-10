@@ -4,6 +4,7 @@ import "../../styles/style.css";
 import "../../styles/style_event.css";
 
 const EventInfo = props => {
+	const musicians = props.event.musicians;
   return (
     <div>
       <div className="event-header">
@@ -17,14 +18,12 @@ const EventInfo = props => {
         <div className="heading_event-wrapper">
           <h1 className="heading_event--title">{props.event.name}</h1>
           <div className="music-by">
-            Music by
-            <h5 className="performer">DJ FLEX</h5>
+            Music by 
+            <h5 className="performer">{}</h5>
           </div>
         </div>
         <p className="event--info">
-          Ljetne vrućine već su se vratile u Split, a najbolji način za
-          proslaviti vruće ljetne noći je svima poznati MONDAY TRASH u Zenta
-          klubu!
+          {props.event.description}
         </p>
         <div className="event-date-price-wrapper">
           <h3 className="event--date">
@@ -32,7 +31,7 @@ const EventInfo = props => {
             <span className="font-color--purple">JUL</span>
             <span>23h</span>
           </h3>
-          <h3 className="event--price">Ticket price: 120kn</h3>
+          <h3 className="event--price">Ticket price: {props.event.price}</h3>
         </div>
 		<Link to={`/buy-ticket/` + props.event.id}>
 			<button className="heading-event--button purple-button full-width">

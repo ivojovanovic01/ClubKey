@@ -20,7 +20,7 @@ const Event = props => {
         <div>
           <h4 className="small-event-info--title">{props.event.name}</h4>
           <p className="small-event-info--tags">
-            #party #narodnjaci #freedrinks #maturalna #reggeto
+            {props.event.hashtags}
           </p>
         </div>
         <div className="small-event-btn">

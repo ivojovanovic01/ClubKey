@@ -3,6 +3,7 @@ import UserHeader from "./userHeader";
 import Ticket from "./ticket";
 import Achievement from "./achievement";
 import "../../styles/style_profile.css";
+import NavMenu from "../NavMenu";
 import {
   getAchievementsByUserId,
   getTicketsByUserId,
@@ -17,15 +18,12 @@ class UserAccountView extends Component {
     tickets: [],
     achievements: [],
     finishedAchievements: [],
-    loadings: {
       loadingUser: true,
       loadingAchievements: true,
       loadingTickets: true
-    }
   };
 
   componentDidMount() {
-	const { id } = this.props.match.params;
     this.getUser();
     this.getAchievements();
   }
@@ -33,9 +31,7 @@ class UserAccountView extends Component {
   getUser = () => {
     getUserByUsername("iivanic12").then(user => {
       if (user !== undefined) {
-        let loadings = { ...this.state.loadings };
-        loadings.loadingUser = false;
-        this.setState({ user, loadings });
+        this.setState({ user, loadingUser: false });
         this.getFinishedAchievements(user);
         this.getTickets(user);
       }
@@ -53,49 +49,47 @@ class UserAccountView extends Component {
       tickets.map((ticket, index) => {
         this.getEvent(ticket);
       });
-      let loadings = { ...this.state.loadings };
-      loadings.loadingTickets = false;
-      this.setState({ loadings });
     });
   };
 
   getEvent = ticket => {
     getEventByTicketId(ticket.id).then(event => {
       ticket.event = event;
-      this.setState({ ...this.state.tickets, ticket });
+	  let tickets = this.state.tickets;
+	  tickets.push(ticket);
+      this.setState({ tickets, loadingTickets: false });
     });
   };
 
   getAchievements = () => {
     getAllAchievements().then(achievements => {
-      let loadings = { ...this.state.loadings };
-      loadings.loadingAchievements = false;
-      this.setState({ achievements, loadings });
+      this.setState({ achievements, loadingAchievements: false });
     });
   };
 
   render() {
-    const { tickets, achievements, user, loadings } = this.state;
+    const { tickets, achievements, user, loadingAchievements, 
+			loadingTickets, loadingUser } = this.state;
     return (
       <div>
-        {loadings.loadingUser || user === null ? (
+        {loadingUser || user === null ? (
           <div>Loading User Info...</div>
         ) : (
           <UserHeader user={user} />
         )}
         <section className="active-tickets">
           <h3 className="section-title">Active tickets</h3>
-          {loadings.loadingTickets || tickets === undefined ? (
+          {loadingTickets || tickets === undefined ? (
             <div>Loading Tickets...</div>
           ) : (
             tickets.map((ticket, index) => (
-              <Ticket key={index} ticket={ticket} />
+              <Ticket key={index} ticket={ticket}/>
             ))
           )}
         </section>
         <section className="achievements">
           <h3 className="section-title">Achievements</h3>
-          {loadings.loadingAchievements || achievements === undefined ? (
+          {loadingAchievements || achievements === undefined ? (
             <div>Loading Achievements...</div>
           ) : (
             achievements.map((achievement, index) => (
@@ -103,6 +97,7 @@ class UserAccountView extends Component {
             ))
           )}
         </section>
+		<NavMenu />
       </div>
     );
   }

@@ -27,6 +27,7 @@ namespace ClubKey.Domain.Repositories.Implementations
             _context.SaveChanges();
             return true;
         }
+
         private static bool IsTicketValid(Ticket ticket) => ticket.EventId != 0 && ticket.Price > 0 && ticket.UserId != 0;
     }
 }

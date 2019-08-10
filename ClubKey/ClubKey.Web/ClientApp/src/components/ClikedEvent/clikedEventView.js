@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import EventInfo from "./eventInfo";
 import Event from "../event";
 import "../../styles/style_event.css";
+import NavMenu from "../NavMenu";
 import { getClubByEventId, getTenSimilarEvents, getEventById } from "./apiRequests";
 
 class ClickedEventView extends Component {
   state = {
     club: null,
 	event: null,
-    similarEvents: [],
+    clubsAndSimilarEvents: [],
     loadingSimilarEvents: true,
 	loadingEvent: true,
 	loadingClub: true
@@ -20,16 +21,22 @@ class ClickedEventView extends Component {
 		this.setState({ event, loadingEvent: false });
     	getClubByEventId(id).then(club => {
       		this.setState({ club, loadingClub: false });
-      		getTenSimilarEvents(this.state.event).then(similarEvents => {
-        		this.setState({ similarEvents, loadingSimilarEvents: false });
+      		getTenSimilarEvents(this.state.event.id).then(similarEvents => {
+				similarEvents.map((similarEvent, index) => {
+					getClubByEventId(similarEvent.id).then(club => {
+						var clubsAndSimilarEvents = this.state.clubsAndSimilarEvents;
+						clubsAndSimilarEvents.push({ club, similarEvent});
+						this.setState({ clubsAndSimilarEvents, loadingSimilarEvents: false });
+			});
+		});
       		});
     	});
   	});
   }
 
   render() {
-    const { event, club, similarEvents, loadingSimilarEvents, loadingEvent, loadingClub } = this.state;
-    return (
+    const { event, club, clubsAndSimilarEvents, loadingSimilarEvents, loadingEvent, loadingClub } = this.state;
+	return (
       <div>
 		{
 			loadingEvent || loadingClub || event === undefined || club === undefined?
@@ -38,14 +45,19 @@ class ClickedEventView extends Component {
 		}
         <section className="small-events">
           <h3>Similar events</h3>
-          {similarEvents === undefined || loadingSimilarEvents ? (
+          {clubsAndSimilarEvents === undefined || loadingSimilarEvents ? (
             <div>Loading Similar Events...</div>
           ) : (
-            similarEvents.map((similarEvent, index) => 
-			<Event event={similarEvent} key={index} />
+            clubsAndSimilarEvents.map((clubAndSimilarEvent, index) => 
+			<Event 
+				event={clubAndSimilarEvent.similarEvent} 
+				club={clubAndSimilarEvent.club}
+				key={index} 
+			/>
 			)
           )}
         </section>
+		<NavMenu />
       </div>
     );
   }

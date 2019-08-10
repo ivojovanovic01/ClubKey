@@ -10,9 +10,9 @@ export const getEventById = eventId =>
       alert("GetEventById failed");
     });
 
-export const getTenSimilarEvents = event =>
+export const getTenSimilarEvents = eventId =>
   axios
-    .get("api/events/get-ten-similar-events", { params: { event } })
+    .get("api/events/get-ten-similar-events", { params: { eventId } })
     .then(response => {
       return response.data;
     })

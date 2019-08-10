@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserInformation from "./userInformation";
 import PaymentMethods from "./paymentMethods";
 import OrderReview from "./orderReview";
+import NavMenu from "../NavMenu";
 import "../../styles/style_payment.css";
 import "../../styles/style.css";
 import {
@@ -109,6 +110,7 @@ class BuyingScreenView extends Component {
 		>
 			BUY NOW
 		</button>
+		<NavMenu />
 	</div>
 );
 }

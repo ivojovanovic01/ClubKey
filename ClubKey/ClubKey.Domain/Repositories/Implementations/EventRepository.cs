@@ -39,8 +39,13 @@ namespace ClubKey.Domain.Repositories.Implementations
                 null :
                 cityEvents.Skip((pageNumber - 1) * 10).Take(10).ToList();
         }
-        public List<Event> GetTenSimilarEvents(Event mainEvent)
+        public List<Event> GetTenSimilarEvents(int eventId)
         {
+            var mainEvent = _context.Events.Include(e => e.Club).FirstOrDefault(e => e.Id == eventId);
+            
+            if (mainEvent == null)
+                return null;
+
             return _context
                 .Events
                 .Where(e => e.Club != mainEvent.Club)
@@ -79,6 +84,11 @@ namespace ClubKey.Domain.Repositories.Implementations
 
             _context.SaveChanges();
             return true;
+        }
+        public Event GetEventByTicketId(Guid ticketId)
+        {
+            var selectedTicket = _context.Tickets.Include(e => e.Event).FirstOrDefault(t => t.Id == ticketId);
+            return selectedTicket == null ? null : _context.Events.FirstOrDefault(c => c.Id == selectedTicket.Event.Id);
         }
         private bool IsEventNameUnique(Event testEvent) => 
             _context.Events.All(e => e.Name != testEvent.Name.Trim() && e.Id != testEvent.Id);
