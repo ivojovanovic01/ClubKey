@@ -6,5 +6,6 @@ namespace ClubKey.Domain.Repositories.Interfaces
     public interface ITicketRepository
     {
         List<Ticket> GetTicketsByUserId(int userId);
+        bool AddTicket(Ticket ticketToAdd);
     }
 }

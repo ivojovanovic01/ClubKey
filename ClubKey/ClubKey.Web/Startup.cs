@@ -31,6 +31,7 @@ namespace ClubKey.Web
             services.AddScoped<IAchievementRepository, AchievementRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IClubRepository, ClubRepository>();
+            services.AddScoped<IMusicianRepository, MusicianRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
